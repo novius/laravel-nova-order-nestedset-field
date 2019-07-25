@@ -1,0 +1,46 @@
+{
+  "name": "novius/laravel-nova-order-nestedset-field",
+  "description": "A Laravel Nova field that make your resources orderable",
+  "keywords": [
+    "laravel",
+    "nova",
+    "nestedset",
+    "trees",
+    "hierarchies"
+  ],
+  "license": "AGPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Novius Agency",
+      "email": "team-developpeurs@novius.com",
+      "homepage": "https://www.novius.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1.0",
+    "kalnoy/nestedset": "^4.3.5"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "~2.15.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Novius\\LaravelNovaOrderNestedsetField\\": "src/"
+    }
+  },
+  "scripts": {
+    "lint": [
+      "php-cs-fixer fix --dry-run --config .php_cs -vv --diff --allow-risky=yes"
+    ]
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Novius\\LaravelNovaOrderNestedsetField\\OrderNestedsetFieldServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  }
+}

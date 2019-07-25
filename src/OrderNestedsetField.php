@@ -1,0 +1,59 @@
+<?php
+
+namespace Novius\LaravelNovaOrderNestedsetField;
+
+use Kalnoy\Nestedset\NodeTrait;
+use Laravel\Nova\Fields\Field;
+use Novius\LaravelNovaOrderNestedsetField\Traits\Orderable;
+
+class OrderNestedsetField extends Field
+{
+    /**
+     * The field's component.
+     *
+     * @var string
+     */
+    public $component = 'order-nestedset-field';
+
+    /**
+     * @var bool
+     */
+    public $showOnDetail = false;
+
+    /**
+     * @var bool
+     */
+    public $showOnCreation = false;
+
+    /**
+     * @var bool
+     */
+    public $showOnUpdate = false;
+
+    protected function resolveAttribute($resource, $attribute)
+    {
+        if (!in_array(Orderable::class, class_uses($resource))) {
+            abort(500, trans('nova-order-nestedset-field::errors.model_should_use_trait', [
+                'class' => Orderable::class,
+                'model' => get_class($resource),
+            ]));
+        }
+
+        if (!in_array(NodeTrait::class, class_uses($resource))) {
+            abort(500, trans('nova-order-nestedset-field::errors.model_should_use_trait', [
+                'class' => NodeTrait::class,
+                'model' => get_class($resource),
+            ]));
+        }
+
+        $first = $resource->buildSortQuery()->ordered()->first();
+        $last = $resource->buildSortQuery()->ordered('desc')->first();
+
+        $this->withMeta([
+            'first' => is_null($first) ? null : $first->id,
+            'last' => is_null($last) ? null : $last->id,
+        ]);
+
+        return data_get($resource, $attribute);
+    }
+}

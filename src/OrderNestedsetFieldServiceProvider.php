@@ -25,6 +25,8 @@ class OrderNestedsetFieldServiceProvider extends ServiceProvider
             Nova::style('laravel-nova-order-nestedset-field', __DIR__.'/../dist/css/field.css');
         });
 
+        $this->publishes([__DIR__.'/../config' => config_path()], 'config');
+
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'nova-order-nestedset-field');
         $this->publishes([__DIR__.'/../resources/lang' => resource_path('lang/vendor/nova-order-nestedset-field')], 'lang');
     }
@@ -36,7 +38,10 @@ class OrderNestedsetFieldServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/nova-order-nestedset-field.php',
+            'nova-order-nestedset-field'
+        );
     }
 
     /**

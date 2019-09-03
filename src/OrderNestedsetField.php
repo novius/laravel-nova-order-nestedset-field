@@ -2,6 +2,7 @@
 
 namespace Novius\LaravelNovaOrderNestedsetField;
 
+use Illuminate\Support\Facades\Cache;
 use Kalnoy\Nestedset\NodeTrait;
 use Laravel\Nova\Fields\Field;
 use Novius\LaravelNovaOrderNestedsetField\Traits\Orderable;
@@ -46,8 +47,18 @@ class OrderNestedsetField extends Field
             ]));
         }
 
-        $first = $resource->buildSortQuery()->ordered()->first();
-        $last = $resource->buildSortQuery()->ordered('desc')->first();
+        if (config('nova-order-nestedset-field.cache_enabled', false)) {
+            $cachePrefix = $resource->getOrderableCachePrefix();
+            $first = Cache::rememberForever($cachePrefix.'.first', function () use ($resource) {
+                return $resource->buildSortQuery()->ordered()->first();
+            });
+            $last = Cache::rememberForever($cachePrefix.'.last', function () use ($resource) {
+                return $resource->buildSortQuery()->ordered('desc')->first();
+            });
+        } else {
+            $first = $resource->buildSortQuery()->ordered()->first();
+            $last = $resource->buildSortQuery()->ordered('desc')->first();
+        }
 
         $this->withMeta([
             'first' => is_null($first) ? null : $first->id,

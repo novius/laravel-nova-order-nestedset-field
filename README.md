@@ -14,6 +14,14 @@ A field that make your resources orderable using [the laravel nestedset package]
 composer require novius/laravel-nova-order-nestedset-field
 ```
 
+### Configuration
+
+Some options that you can override are available.
+
+```sh
+php artisan vendor:publish --provider="Novius\LaravelNovaOrderNestedsetField\OrderNestedsetFieldServiceProvider" --tag="config"
+```
+
 ## Usage
 
 **Step 1**
@@ -95,6 +103,56 @@ need to specify this attribute as scope attribute:
 
 [Retrieve more information about usage on official doc](https://github.com/lazychaser/laravel-nestedset#scoping).
 
+## Performances
+
+You can enable cache to avoid performance issues in case of large tree.
+
+**By default cache is disabled.**
+
+To use cache you have to enabled it in config file with :
+
+```php
+return [
+    ...
+
+    'cache_enabled' => true,
+];
+```
+
+**You have to clear cache on every tree updates with an observer on your Model (or directly in boot method).**
+
+```php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Kalnoy\Nestedset\NodeTrait;
+use Novius\LaravelNovaOrderNestedsetField\Traits\Orderable;
+
+class Foo extends Model 
+{
+    use NodeTrait;
+    use Orderable;
+
+    public static function boot()
+    {
+        parent::boot();
+
+        if (config('nova-order-nestedset-field.cache_enabled', false)) {
+            static::created(function (Theme $model) {
+                $model->clearOrderableCache();
+            });
+
+            static::updated(function (Theme $model) {
+                $model->clearOrderableCache();
+            });
+
+            static::deleted(function (Theme $model) {
+                $model->clearOrderableCache();
+            });
+        }
+    }
+}
+```
 
 ## Override default languages files
 

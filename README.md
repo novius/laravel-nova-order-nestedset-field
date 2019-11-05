@@ -1,4 +1,7 @@
 # Nova Order Field nestedset
+[![Travis](https://img.shields.io/travis/novius/laravel-nova-order-nestedset-field.svg?maxAge=1800&style=flat-square)](https://travis-ci.org/novius/laravel-nova-order-nestedset-field)
+[![Packagist Release](https://img.shields.io/packagist/v/novius/laravel-nova-order-nestedset-field.svg?maxAge=1800&style=flat-square)](https://packagist.org/packages/novius/laravel-nova-order-nestedset-field)
+[![Licence](https://img.shields.io/packagist/l/novius/laravel-nova-order-nestedset-field.svg?maxAge=1800&style=flat-square)](https://github.com/novius/laravel-nova-order-nestedset-field#licence)
 
 A field that make your resources orderable using [the laravel nestedset package](https://github.com/lazychaser/laravel-nestedset).
 
@@ -6,7 +9,7 @@ A field that make your resources orderable using [the laravel nestedset package]
 
 * PHP >= 7.1
 * Laravel Nova >= 2.0
-* Laravel Framework 5.8+
+* Laravel Framework >= 5.8
 
 ## Installation
 

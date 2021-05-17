@@ -22,7 +22,6 @@ class OrderNestedsetFieldServiceProvider extends ServiceProvider
 
         Nova::serving(function (ServingNova $event) {
             Nova::script('laravel-nova-order-nestedset-field', __DIR__.'/../dist/js/field.js');
-            Nova::style('laravel-nova-order-nestedset-field', __DIR__.'/../dist/css/field.css');
         });
 
         $this->publishes([__DIR__.'/../config' => config_path()], 'config');

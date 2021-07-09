@@ -7,6 +7,7 @@
 // Removed: phpdoc_no_package, phpdoc_summary
 
 $excludes = [
+    'database',
     'dist',
     'node_modules',
     'resources',
@@ -22,7 +23,7 @@ $rules = [
     'simplified_null_return' => false,
     'encoding' => true,
     'single_blank_line_at_eof' => true,
-    'no_extra_consecutive_blank_lines' => true,
+    'no_extra_blank_lines' => true,
     'no_spaces_after_function_name' => true,
     'function_declaration' => true,
     'include' => true,
@@ -32,11 +33,10 @@ $rules = [
     'line_ending' => true,
     'no_trailing_comma_in_list_call' => true,
     'not_operator_with_successor_space' => false,
-    'lowercase_constants' => true,
+    'lowercase_cast' => true,
     'lowercase_keywords' => true,
     'method_argument_space' => true,
-    'trailing_comma_in_multiline_array' => true,
-    'no_multiline_whitespace_before_semicolons' => true,
+    'trailing_comma_in_multiline' => true,
     'single_import_per_statement' => true,
     'no_leading_namespace_whitespace' => true,
     'no_blank_lines_after_class_opening' => true,
@@ -44,7 +44,6 @@ $rules = [
     'object_operator_without_whitespace' => true,
     'no_spaces_inside_parenthesis' => true,
     'phpdoc_indent' => true,
-    'phpdoc_inline_tag' => true,
     'phpdoc_no_access' => true,
     'phpdoc_scalar' => true,
     'phpdoc_to_comment' => false,
@@ -53,10 +52,10 @@ $rules = [
     'phpdoc_var_without_name' => true,
     'no_leading_import_slash' => true,
     'braces' => false,
-    'blank_line_before_return' => true,
+    'blank_line_before_statement' => true,
     'self_accessor' => true,
     'array_syntax' => ['syntax' => 'short'],
-    'no_short_echo_tag' => true,
+    'echo_tag_syntax' => true,
     'full_opening_tag' => true,
     'no_trailing_comma_in_singleline_array' => true,
     'single_blank_line_before_namespace' => true,
@@ -68,7 +67,6 @@ $rules = [
     'ternary_operator_spaces' => true,
     'no_trailing_whitespace' => true,
     'trim_array_spaces' => true,
-    'binary_operator_spaces' => ['align_equals' => false],
     'unary_operator_spaces' => true,
     'no_unused_imports' => true,
     'visibility_required' => true,
@@ -81,7 +79,8 @@ $finder = PhpCsFixer\Finder::create()
     ->ignoreDotFiles(true)
     ->in(__DIR__);
 
-return PhpCsFixer\Config::create()
-    ->setRules($rules)
+$config = new PhpCsFixer\Config();
+
+return $config->setRules($rules)
     ->setFinder($finder)
     ->setUsingCache(true);

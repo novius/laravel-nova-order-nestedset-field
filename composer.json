@@ -19,7 +19,7 @@
   "require": {
     "php": ">=7.4",
     "illuminate/support": "^8.43",
-    "kalnoy/nestedset": "^5.0.0"
+    "kalnoy/nestedset": "^6.0.0"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.0"

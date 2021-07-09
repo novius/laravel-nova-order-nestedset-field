@@ -7,9 +7,12 @@ A field that make your resources orderable using [the laravel nestedset package]
 
 ## Requirements
 
-* PHP >= 7.1
-* Laravel Nova >= 2.0
-* Laravel Framework >= 5.8
+* PHP >= 7.4
+* Laravel Nova >= 3.0
+* Laravel Framework >= 8.43
+
+> **NOTE**: These instructions are for Laravel >= 8.43. If you are using prior version, please
+> see the [previous version's docs](https://github.com/novius/laravel-nova-order-nestedset-field/tree/1.x).
 
 ## Installation
 

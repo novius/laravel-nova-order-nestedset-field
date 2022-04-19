@@ -17,14 +17,14 @@ class PositionController extends Controller
         $resourceId = $request->get('resourceId');
         $model = $request->findModelOrFail($resourceId);
 
-        if (!in_array(Orderable::class, class_uses($model))) {
+        if (!in_array(Orderable::class, class_uses_recursive($model))) {
             abort(500, trans('nova-order-nestedset-field::errors.model_should_use_trait', [
                 'class' => Orderable::class,
                 'model' => get_class($model),
             ]));
         }
 
-        if (!in_array(NodeTrait::class, class_uses($model))) {
+        if (!in_array(NodeTrait::class, class_uses_recursive($model))) {
             abort(500, trans('nova-order-nestedset-field::errors.model_should_use_trait', [
                 'class' => NodeTrait::class,
                 'model' => get_class($model),

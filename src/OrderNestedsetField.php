@@ -33,14 +33,14 @@ class OrderNestedsetField extends Field
 
     protected function resolveAttribute($resource, $attribute)
     {
-        if (!in_array(Orderable::class, class_uses($resource))) {
+        if (!in_array(Orderable::class, class_uses_recursive($resource))) {
             abort(500, trans('nova-order-nestedset-field::errors.model_should_use_trait', [
                 'class' => Orderable::class,
                 'model' => get_class($resource),
             ]));
         }
 
-        if (!in_array(NodeTrait::class, class_uses($resource))) {
+        if (!in_array(NodeTrait::class, class_uses_recursive($resource))) {
             abort(500, trans('nova-order-nestedset-field::errors.model_should_use_trait', [
                 'class' => NodeTrait::class,
                 'model' => get_class($resource),

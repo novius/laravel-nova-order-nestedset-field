@@ -27,7 +27,7 @@ class OrderNestedsetFieldServiceProvider extends ServiceProvider
         $this->publishes([__DIR__.'/../config' => config_path()], 'config');
 
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'nova-order-nestedset-field');
-        $this->publishes([__DIR__.'/../resources/lang' => resource_path('lang/vendor/nova-order-nestedset-field')], 'lang');
+        $this->publishes([__DIR__.'/../resources/lang' => lang_path('vendor/nova-order-nestedset-field')], 'lang');
     }
 
     /**

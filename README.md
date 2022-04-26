@@ -9,9 +9,8 @@ A field that make your resources orderable using [the laravel nestedset package]
 
 * PHP >= 8.1
 * Laravel Nova >= 4.0
-* Laravel Framework >= 9.0
 
-> **NOTE**: These instructions are for Laravel >= 9.0 and Laravel Nova 4.0. If you are using prior version, please
+> **NOTE**: These instructions are for Laravel Nova 4.0. If you are using prior version, please
 > see the [previous version's docs](https://github.com/novius/laravel-nova-order-nestedset-field/tree/2.x).
 
 ## Installation

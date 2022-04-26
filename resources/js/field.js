@@ -1,3 +1,5 @@
-Nova.booting((Vue, router, store) => {
-    Vue.component('index-order-nestedset-field', require('./components/IndexField'))
-});
+import IndexField from './components/IndexField'
+
+Nova.booting((app, store) => {
+  app.component('index-order-nestedset-field', IndexField)
+})

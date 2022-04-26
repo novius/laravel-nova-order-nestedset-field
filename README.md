@@ -11,7 +11,7 @@ A field that make your resources orderable using [the laravel nestedset package]
 * Laravel Nova >= 4.0
 
 > **NOTE**: These instructions are for Laravel Nova 4.0. If you are using prior version, please
-> see the [previous version's docs](https://github.com/novius/laravel-nova-order-nestedset-field/tree/2.x).
+> see the [previous version's docs](https://github.com/novius/laravel-nova-order-nestedset-field/tree/3.x).
 
 ## Installation
 

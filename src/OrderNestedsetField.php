@@ -31,16 +31,16 @@ class OrderNestedsetField extends Field
      */
     public $showOnUpdate = false;
 
-    protected function resolveAttribute($resource, $attribute)
+    protected function resolveAttribute($resource, string $attribute): mixed
     {
-        if (!in_array(Orderable::class, class_uses_recursive($resource))) {
+        if (! in_array(Orderable::class, class_uses_recursive($resource), true)) {
             abort(500, trans('nova-order-nestedset-field::errors.model_should_use_trait', [
                 'class' => Orderable::class,
                 'model' => get_class($resource),
             ]));
         }
 
-        if (!in_array(NodeTrait::class, class_uses_recursive($resource))) {
+        if (! in_array(NodeTrait::class, class_uses_recursive($resource), true)) {
             abort(500, trans('nova-order-nestedset-field::errors.model_should_use_trait', [
                 'class' => NodeTrait::class,
                 'model' => get_class($resource),
@@ -49,10 +49,10 @@ class OrderNestedsetField extends Field
 
         if (config('nova-order-nestedset-field.cache_enabled', false)) {
             $cachePrefix = $resource->getOrderableCachePrefix();
-            $first = Cache::rememberForever($cachePrefix.'.first', function () use ($resource) {
+            $first = Cache::rememberForever($cachePrefix.'.first', static function () use ($resource) {
                 return $resource->buildSortQuery()->ordered()->first();
             });
-            $last = Cache::rememberForever($cachePrefix.'.last', function () use ($resource) {
+            $last = Cache::rememberForever($cachePrefix.'.last', static function () use ($resource) {
                 return $resource->buildSortQuery()->ordered('desc')->first();
             });
         } else {

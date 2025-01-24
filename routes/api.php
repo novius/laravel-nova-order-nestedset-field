@@ -1,5 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Novius\LaravelNovaOrderNestedsetField\Http\Controllers\PositionController;
 
-Route::post('{resource}', \Novius\LaravelNovaOrderNestedsetField\Http\Controllers\PositionController::class);
+
+Route::post('{resource}', PositionController::class);

@@ -11,16 +11,14 @@ class OrderNestedsetFieldServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->app->booted(function () {
             $this->routes();
         });
 
-        Nova::serving(function (ServingNova $event) {
+        Nova::serving(static function (ServingNova $event) {
             Nova::script('laravel-nova-order-nestedset-field', __DIR__.'/../dist/js/field.js');
         });
 
@@ -32,10 +30,8 @@ class OrderNestedsetFieldServiceProvider extends ServiceProvider
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(
             __DIR__.'/../config/nova-order-nestedset-field.php',
@@ -45,10 +41,8 @@ class OrderNestedsetFieldServiceProvider extends ServiceProvider
 
     /**
      * Register the tool's routes.
-     *
-     * @return void
      */
-    protected function routes()
+    protected function routes(): void
     {
         if ($this->app->routesAreCached()) {
             return;

@@ -17,12 +17,14 @@
     }
   ],
   "require": {
-    "php": ">=8.1",
-    "laravel/nova": "^4.0",
+    "php": "^8.2",
+    "laravel/nova": "^5.0",
+    "illuminate/support": "^10.0 | ^11.0",
     "kalnoy/nestedset": "^6.0.0"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^3.8.0"
+    "laravel/pint": "^1.7",
+    "phpstan/phpstan": "^2.1"
   },
   "autoload": {
     "psr-4": {
@@ -30,9 +32,13 @@
     }
   },
   "scripts": {
+    "cs-fix": [
+      "./vendor/bin/pint -v"
+    ],
     "lint": [
-      "php-cs-fixer fix --config .php-cs-fixer.php -vv --diff --allow-risky=yes --dry-run"
-    ]
+      "@composer cs-fix -- --test"
+    ],
+    "phpstan": "vendor/bin/phpstan analyse src --memory-limit 1G"
   },
   "extra": {
     "laravel": {
@@ -41,6 +47,12 @@
       ]
     }
   },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://nova.laravel.com"
+    }
+  ],
   "config": {
     "sort-packages": true
   }

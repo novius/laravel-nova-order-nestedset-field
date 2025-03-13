@@ -41,9 +41,21 @@ jobs:
 
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        operating-system: ['ubuntu-latest', 'windows-latest', 'macos-latest']
+        operating-system: ['ubuntu-latest']
         php-versions: ['8.2', '8.3', '8.4']
+        laravel: [ 10.*, 11.*, 12.* ]
+        dependency-version: [ prefer-stable ]
+        include:
+          - laravel: 12.*
+            carbon: 3.*
+          - laravel: 11.*
+            carbon: 2.*
+          - laravel: 10.*
+            carbon: 2.*
+
+    name: phpstan - P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
     steps:
       - uses: shivammathur/setup-php@v2
@@ -66,7 +78,9 @@ jobs:
           key: composer-${{ hashFiles('composer.lock') }}
 
       - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" "nesbot/carbon:${{ matrix.carbon }}" --no-interaction --no-update
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: PHPStan Static Analysis
         run: composer run-script phpstan

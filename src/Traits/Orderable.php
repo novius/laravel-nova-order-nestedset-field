@@ -9,6 +9,10 @@ use Kalnoy\Nestedset\NodeTrait;
 
 /**
  * @mixin Model&NodeTrait
+ *
+ * @phpstan-require-extends Model
+ *
+ * @phpstan-ignore trait.unused
  */
 trait Orderable
 {

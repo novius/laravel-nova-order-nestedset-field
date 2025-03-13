@@ -1,59 +1,61 @@
 {
-  "name": "novius/laravel-nova-order-nestedset-field",
-  "description": "A Laravel Nova field that make your resources orderable",
-  "keywords": [
-    "laravel",
-    "nova",
-    "nestedset",
-    "trees",
-    "hierarchies"
-  ],
-  "license": "AGPL-3.0-or-later",
-  "authors": [
-    {
-      "name": "Novius Agency",
-      "email": "team-developpeurs@novius.com",
-      "homepage": "https://www.novius.com"
-    }
-  ],
-  "require": {
-    "php": "^8.2",
-    "laravel/nova": "^5.0",
-    "illuminate/support": "^10.0 | ^11.0",
-    "kalnoy/nestedset": "^6.0.0"
-  },
-  "require-dev": {
-    "laravel/pint": "^1.7",
-    "phpstan/phpstan": "^2.1"
-  },
-  "autoload": {
-    "psr-4": {
-      "Novius\\LaravelNovaOrderNestedsetField\\": "src/"
-    }
-  },
-  "scripts": {
-    "cs-fix": [
-      "./vendor/bin/pint -v"
+    "name": "novius/laravel-nova-order-nestedset-field",
+    "description": "A Laravel Nova field that make your resources orderable",
+    "keywords": [
+        "laravel",
+        "nova",
+        "nestedset",
+        "trees",
+        "hierarchies"
     ],
-    "lint": [
-      "@composer cs-fix -- --test"
+    "license": "AGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Novius Agency",
+            "email": "team-developpeurs@novius.com",
+            "homepage": "https://www.novius.com"
+        }
     ],
-    "phpstan": "vendor/bin/phpstan analyse src --memory-limit 1G"
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Novius\\LaravelNovaOrderNestedsetField\\OrderNestedsetFieldServiceProvider"
-      ]
+    "require": {
+        "php": "^8.2",
+        "laravel/nova": "^5.0",
+        "laravel/framework": "^10.0 | ^11.0 | ^12.0",
+        "kalnoy/nestedset": "^6.0.0"
+    },
+    "require-dev": {
+        "larastan/larastan": "^3.0",
+        "laravel/pint": "^1.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Novius\\LaravelNovaOrderNestedsetField\\": "src/"
+        }
+    },
+    "scripts": {
+        "cs-fix": [
+            "./vendor/bin/pint -v"
+        ],
+        "lint": [
+            "@composer cs-fix -- --test"
+        ],
+        "phpstan": [
+            "vendor/bin/phpstan analyse --memory-limit 1G"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Novius\\LaravelNovaOrderNestedsetField\\OrderNestedsetFieldServiceProvider"
+            ]
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    ],
+    "config": {
+        "sort-packages": true
     }
-  },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://nova.laravel.com"
-    }
-  ],
-  "config": {
-    "sort-packages": true
-  }
 }

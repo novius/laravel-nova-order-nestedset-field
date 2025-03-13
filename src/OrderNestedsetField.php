@@ -2,6 +2,7 @@
 
 namespace Novius\LaravelNovaOrderNestedsetField;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Kalnoy\Nestedset\NodeTrait;
 use Laravel\Nova\Fields\Field;
@@ -33,6 +34,7 @@ class OrderNestedsetField extends Field
 
     protected function resolveAttribute($resource, string $attribute): mixed
     {
+        /** @var Model&Orderable&NodeTrait $resource */
         if (! in_array(Orderable::class, class_uses_recursive($resource), true)) {
             abort(500, trans('nova-order-nestedset-field::errors.model_should_use_trait', [
                 'class' => Orderable::class,

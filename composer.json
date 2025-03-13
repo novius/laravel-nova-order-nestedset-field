@@ -23,7 +23,7 @@
         "kalnoy/nestedset": "^6.0.0"
     },
     "require-dev": {
-        "larastan/larastan": "^3.0",
+        "larastan/larastan": "^2.0 | ^3.0",
         "laravel/pint": "^1.7"
     },
     "autoload": {

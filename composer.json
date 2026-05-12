@@ -19,12 +19,13 @@
     "require": {
         "php": "^8.2",
         "laravel/nova": "^5.0",
-        "laravel/framework": "^10.0 | ^11.0 | ^12.0",
-        "kalnoy/nestedset": "^6.0.0"
+        "laravel/framework": "^10.0 | ^11.0 | ^12.0 | ^13.0",
+        "kalnoy/nestedset": "^6.0.0 | ^7.0"
     },
     "require-dev": {
         "larastan/larastan": "^2.0 | ^3.0",
-        "laravel/pint": "^1.7"
+        "laravel/pint": "^1.7",
+        "orchestra/testbench": "^9.0 | ^10.11 | ^11.0"
     },
     "autoload": {
         "psr-4": {

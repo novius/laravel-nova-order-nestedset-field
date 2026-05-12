@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: shivammathur/setup-php@v2
         with:
-          php-versions: '8.3'
+          php-versions: '8.5'
 
       - name: Checkout code
         uses: actions/checkout@v3
@@ -43,17 +43,26 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        operating-system: ['ubuntu-latest']
-        php-versions: ['8.2', '8.3', '8.4']
-        laravel: [ 11.*, 12.* ]
-        dependency-version: [ prefer-stable ]
+        php-versions: ['8.2', '8.3', '8.4', '8.5']
+        laravel: [ 11.*, 12.*, 13.* ]
         include:
+          - laravel: 13.*
+            carbon: 3.*
+            testbench: 11.*
+            nestedset: 7.*
           - laravel: 12.*
             carbon: 3.*
+            testbench: 10.*
+            nestedset: 6.*
           - laravel: 11.*
             carbon: 2.*
+            testbench: 9.*
+            nestedset: 6.*
+        exclude:
+          - laravel: 13.*
+            php-versions: '8.2'
 
-    name: phpstan - P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+    name: phpstan - P${{ matrix.php-versions }} - L${{ matrix.laravel }}
 
     steps:
       - uses: shivammathur/setup-php@v2
@@ -69,16 +78,23 @@ jobs:
           NOVA_USERNAME: ${{ secrets.NOVA_USERNAME }}
           NOVA_LICENSE_KEY: ${{ secrets.NOVA_LICENSE_KEY }}
 
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
       - name: Cache composer dependencies
         uses: actions/cache@v3
         with:
-          path: vendor
-          key: composer-${{ hashFiles('composer.lock') }}
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-php-${{ matrix.php-versions }}-laravel-${{ matrix.laravel }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php-versions }}-laravel-${{ matrix.laravel }}-composer-
+            ${{ runner.os }}-php-${{ matrix.php-versions }}-
 
       - name: Install Dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "nesbot/carbon:${{ matrix.carbon }}" --no-interaction --no-update
-          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
+          composer require "laravel/framework:${{ matrix.laravel }}" "nesbot/carbon:${{ matrix.carbon }}" "orchestra/testbench:${{ matrix.testbench }}"  "kalnoy/nestedset:${{ matrix.nestedset }}" --no-interaction --no-update
+          composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: PHPStan Static Analysis
         run: composer run-script phpstan

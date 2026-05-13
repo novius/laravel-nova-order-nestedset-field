@@ -51,20 +51,20 @@ class OrderNestedsetField extends Field
 
         if (config('nova-order-nestedset-field.cache_enabled', false)) {
             $cachePrefix = $resource->getOrderableCachePrefix();
-            $first = Cache::rememberForever($cachePrefix.'.first', static function () use ($resource) {
-                return $resource->buildSortQuery()->ordered()->first();
+            $firstId = Cache::rememberForever($cachePrefix.'.first', static function () use ($resource) {
+                return $resource->buildSortQuery()->ordered()->value($resource->getKeyName());
             });
-            $last = Cache::rememberForever($cachePrefix.'.last', static function () use ($resource) {
-                return $resource->buildSortQuery()->ordered('desc')->first();
+            $lastId = Cache::rememberForever($cachePrefix.'.last', static function () use ($resource) {
+                return $resource->buildSortQuery()->ordered('desc')->value($resource->getKeyName());
             });
         } else {
-            $first = $resource->buildSortQuery()->ordered()->first();
-            $last = $resource->buildSortQuery()->ordered('desc')->first();
+            $firstId = $resource->buildSortQuery()->ordered()->value($resource->getKeyName());
+            $lastId = $resource->buildSortQuery()->ordered('desc')->value($resource->getKeyName());
         }
 
         $this->withMeta([
-            'first' => is_null($first) ? null : $first->id,
-            'last' => is_null($last) ? null : $last->id,
+            'first' => $firstId instanceof $resource ? $firstId->id : $firstId,
+            'last' => $lastId instanceof $resource ? $lastId->id : $lastId,
         ]);
 
         return data_get($resource, $attribute);
